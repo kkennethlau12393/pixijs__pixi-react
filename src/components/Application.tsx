@@ -3,7 +3,6 @@ import {
     useContextBridge,
 } from 'its-fine';
 import {
-    type ExtensionFormat,
     type Application as PixiApplication,
     extensions as PixiExtensions,
     TextStyle,
@@ -46,7 +45,7 @@ const ApplicationImplementation = forwardRef<ApplicationRef, ApplicationProps>(f
 
     const applicationRef: RefObject<PixiApplication | null> = useRef(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const extensionsRef = useRef<Set<ExtensionFormat>>(new Set());
+    const extensionsRef = useRef<Set<any>>(new Set());
 
     useImperativeHandle(forwardedRef, () => ({
         getApplication()
@@ -120,7 +119,7 @@ const ApplicationImplementation = forwardRef<ApplicationRef, ApplicationProps>(f
             }
 
             // Load any remaining extensions.
-            for (const extension of extensionsToHandle)
+            for (const extension in extensionsToHandle)
             {
                 PixiExtensions.add(extension);
                 extensionsState.add(extension);
